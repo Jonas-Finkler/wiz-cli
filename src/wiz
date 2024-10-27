@@ -1,0 +1,15 @@
+#!/usr/bin/env python3
+from wizlib import *
+
+if __name__ == "__main__":
+    # check if ~/.config/wiz/config.json exists
+    if os.path.exists(CONFIG_FILE):
+        with open(os.path.expanduser(CONFIG_FILE)) as f:
+            config = json.load(f)
+            lamps = [Lamp(config[name]["ip"], name=name) for name in config]
+        for l in lamps:
+            l.get_status()
+        curses.wrapper(gui, lamps)
+
+    else:
+        print("Config file does not exist (~/.config/wiz/config.json)")
