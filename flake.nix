@@ -18,6 +18,11 @@
       in {
         packages = { inherit wiz; };
         defaultPackage = wiz;
+        overlays = [
+          (final: prev: {
+            inherit wiz;
+          })
+        ];
         devShells.default = pkgs.mkShell {
           buildInputs = [ 
             wiz
