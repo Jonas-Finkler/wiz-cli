@@ -14,21 +14,21 @@
           inherit system;
         };
         python = pkgs.python312;
-        wiz = python.pkgs.callPackage ./package.nix {}; 
+        wiz-cli = python.pkgs.callPackage ./package.nix {}; 
       in {
-        packages = { inherit wiz; };
-        defaultPackage = wiz;
+        packages = { inherit wiz-cli; };
+        defaultPackage = wiz-cli;
         overlays = [
           (final: prev: {
-            inherit wiz;
+            inherit wiz-cli;
           })
         ];
         devShells.default = pkgs.mkShell {
           buildInputs = [ 
-            wiz
+            wiz-cli
           ];
           shellHook = ''
-            export FLAKE="Wiz"
+            export FLAKE="wiz-cli"
             # back to zsh
             exec zsh
           '';
