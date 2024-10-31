@@ -8,6 +8,8 @@ TIMEOUT = 1.0
 PORT = 38899
 NRETRIES = 3
 CONFIG_FILE = os.path.expanduser("~/.config/wiz/config.json")
+TEMP_MIN = 2200
+TEMP_MAX = 6500
 
 class Lamp:
     def __init__(self, ip, name="NONAME"):
@@ -146,8 +148,8 @@ def gui(stdscr, lamps):
         for i, l in enumerate(lamps):
             namepad = l.name.ljust(namelen)
             dimbar = "[" + "=" * (l.dimming // 5) + " " * (20 - l.dimming // 5) + "]"
-            tbarmin = 2400
-            tbarmax = 3500
+            tbarmin = TEMP_MIN
+            tbarmax = 3200
             tbarval = (l.temp - tbarmin) * 20 // (tbarmax - tbarmin)
             tempbar = "[" + "=" * tbarval + " " * (20 - tbarval) + "]"
             indicator_format = (curses.A_BOLD if selected[i] else curses.A_NORMAL) if row==i else curses.A_DIM
@@ -179,9 +181,9 @@ def gui(stdscr, lamps):
         if k == ord('l'):
             update_lamps(dimming=min(100, lamps[row].dimming + 5))
         if k == ord('u'):
-            update_lamps(temp=max(2400, lamps[row].temp - 50))
+            update_lamps(temp=max(TEMP_MIN, lamps[row].temp - 50))
         if k == ord('i'):
-            update_lamps(temp=min(6500, lamps[row].temp + 50))
+            update_lamps(temp=min(TEMP_MAX, lamps[row].temp + 50))
         if k == ord('v'):
             selected[row] = not selected[row]
         if k == ord('c'):
