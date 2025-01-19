@@ -4,7 +4,7 @@ import curses
 import os
 
 
-TIMEOUT = 1.0
+TIMEOUT = 0.2
 PORT = 38899
 NRETRIES = 3
 CONFIG_FILE = os.path.expanduser("~/.config/wiz/config.json")
