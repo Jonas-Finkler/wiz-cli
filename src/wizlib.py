@@ -193,7 +193,7 @@ def gui(stdscr, lamps):
     curses.nocbreak()
     stdscr.keypad(False)
     curses.echo()
-    curses.endwin()
+    # curses.endwin()
 
 
 
